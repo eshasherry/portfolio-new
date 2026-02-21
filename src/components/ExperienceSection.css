@@ -1,0 +1,117 @@
+/* ─── Experience Section ───────────────────────── */
+.experience__grid {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* ─── Timeline Label ───────────────────────────── */
+.experience__timeline-label {
+  grid-row: 1;
+}
+
+.experience__label-card {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.experience__years {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.experience__years-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-top: var(--space-xs);
+  line-height: 1.4;
+}
+
+/* ─── Card ─────────────────────────────────────── */
+.experience__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.experience__current {
+  display: inline-block;
+  padding: 3px 10px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  color: var(--color-white);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  width: fit-content;
+}
+
+.experience__role {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.experience__company {
+  font-size: var(--font-size-base);
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.experience__meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--space-md);
+}
+
+.experience__highlights {
+  flex: 1;
+}
+
+.experience__highlights li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  padding-left: var(--space-md);
+  position: relative;
+  margin-bottom: var(--space-xs);
+  line-height: 1.6;
+}
+
+.experience__highlights li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ─── Responsive ───────────────────────────────── */
+@media (max-width: 1024px) {
+  .experience__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .experience__timeline-label {
+    grid-column: 1 / -1;
+  }
+
+  .experience__label-card {
+    flex-direction: row;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .experience__grid {
+    grid-template-columns: 1fr;
+  }
+}

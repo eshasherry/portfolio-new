@@ -1,0 +1,85 @@
+/* ─── Skills Section ───────────────────────────── */
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: var(--space-lg);
+}
+
+/* Grid placement for bento effect */
+.skills__item--0 { grid-column: 1; grid-row: 1 / 3; } /* AI/ML — tall */
+.skills__item--1 { grid-column: 2 / 4; grid-row: 1; } /* Languages — wide */
+.skills__item--2 { grid-column: 4; grid-row: 1; }     /* Cloud */
+.skills__item--3 { grid-column: 2; grid-row: 2; }     /* Frontend */
+.skills__item--4 { grid-column: 3; grid-row: 2; }     /* Databases */
+.skills__item--5 { grid-column: 4; grid-row: 2; }     /* Messaging */
+
+/* ─── Card ─────────────────────────────────────── */
+.skills__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.skills__category {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.skills__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.skills__pill {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.skills__pill:hover {
+  background: rgba(255, 176, 136, 0.2);
+  border-color: rgba(255, 176, 136, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ─── Responsive ───────────────────────────────── */
+@media (max-width: 1024px) {
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .skills__item--0 { grid-column: 1; grid-row: 1; }
+  .skills__item--1 { grid-column: 2; grid-row: 1; }
+  .skills__item--2 { grid-column: 1; grid-row: 2; }
+  .skills__item--3 { grid-column: 2; grid-row: 2; }
+  .skills__item--4 { grid-column: 1; grid-row: 3; }
+  .skills__item--5 { grid-column: 2; grid-row: 3; }
+}
+
+@media (max-width: 768px) {
+  .skills__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills__item--0,
+  .skills__item--1,
+  .skills__item--2,
+  .skills__item--3,
+  .skills__item--4,
+  .skills__item--5 {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
