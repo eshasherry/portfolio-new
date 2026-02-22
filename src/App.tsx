@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Nav from './components/Nav';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
@@ -22,7 +21,7 @@ function App() {
         <EducationSection />
         <ContactSection />
       </main>
-      <footer className="footer">
+      <footer className="text-center py-12 px-8 text-text-light text-sm border-t border-glass-border">
         <p>
           &copy; {new Date().getFullYear()} Esha Sherry. Built with{' '}
           <span aria-label="love" role="img">&#10084;</span> and React.

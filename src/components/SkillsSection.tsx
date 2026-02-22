@@ -24,11 +24,16 @@ export default function SkillsSection() {
             delay={i * 80}
             className={`skills__item skills__item--${i}`}
           >
-            <BentoCard variant={variantMap[i] || 'default'} className="skills__card">
-              <h3 className="skills__category">{cat.name}</h3>
-              <div className="skills__pills">
+            <BentoCard variant={variantMap[i] || 'default'} className="h-full flex flex-col">
+              <h3 className="text-base font-bold mb-4 text-text-main">{cat.name}</h3>
+              <div className="flex flex-wrap gap-2">
                 {cat.skills.map((skill) => (
-                  <span key={skill} className="skills__pill">{skill}</span>
+                  <span
+                    key={skill}
+                    className="py-1.5 px-3.5 bg-white/50 backdrop-blur-[8px] border border-white/40 rounded-pill text-sm text-text-main font-medium transition-all duration-200 hover:bg-[rgba(255,176,136,0.2)] hover:border-[rgba(255,176,136,0.3)] hover:-translate-y-px"
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </BentoCard>
