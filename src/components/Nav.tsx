@@ -14,9 +14,20 @@ export default function Nav() {
   return (
     <nav className="nav" aria-label="Main navigation">
       <div className="nav__inner">
-        <a href="#hero" className="nav__logo" onClick={handleClick}>
-          ES<span className="nav__logo-dot">.</span>
-        </a>
+        <div className="nav__brand">
+          <a href="#hero" className="nav__logo" onClick={handleClick}>
+            ES<span className="nav__logo-dot">.</span>
+          </a>
+          <video
+            className="nav__video"
+            src={`${process.env.PUBLIC_URL}/Video_No_Background.mp4`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+          />
+        </div>
 
         <button
           className={`nav__hamburger ${menuOpen ? 'nav__hamburger--open' : ''}`}

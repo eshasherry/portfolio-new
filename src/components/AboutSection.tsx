@@ -13,15 +13,16 @@ export default function AboutSection() {
           <BentoCard className="about__text-card">
             <p className="about__text">
               Hi! I'm <strong>{personalInfo.name}</strong>, a{' '}
-              <strong>Technical Lead</strong> at{' '}
+              <strong>{personalInfo.title}</strong> at{' '}
               <strong>{personalInfo.company}</strong> specializing in{' '}
               <strong>AI/ML solutions</strong> that drive real business impact.
             </p>
             <p className="about__text">
               With over 8 years of experience spanning full-stack development,
               cloud architecture, and artificial intelligence, I build systems
-              that transform how organizations operate — from automating contract
-              processing to creating conversational AI platforms.
+              that transform how organizations operate — from building
+              conversational AI agents to automating document processing
+              pipelines that save millions.
             </p>
             <p className="about__text">
               I'm passionate about turning complex problems into elegant,
