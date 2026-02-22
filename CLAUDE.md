@@ -2,7 +2,7 @@
 
 Personal portfolio website for **Esha Sherry** — Sr. Software Engineer, AI at Softchoice.
 
-**Stack:** React 19 · TypeScript · Create React App · CSS custom properties · `@react-pdf/renderer`
+**Stack:** React 19 · TypeScript · Create React App · Tailwind CSS v3 · CSS design tokens · `@react-pdf/renderer`
 
 ## Commands
 
@@ -65,12 +65,14 @@ All content lives in `portfolioData.ts`. To update any text on the site or resum
 | `scripts/resumeTemplate.tsx` | PDF layout using `@react-pdf/renderer` — imports data directly from portfolioData |
 | `scripts/resumeStyles.ts` | `StyleSheet.create()` for the PDF (Helvetica, LETTER size) |
 
-### Styles
+### Styles & Config
 | File | Purpose |
 |------|---------|
-| `src/index.css` | Design tokens (CSS custom properties), global reset, scroll-reveal animation, keyframes |
-| `src/App.css` | Footer styles |
-| `src/components/*.css` | Component-level stylesheets (one per section component) |
+| `tailwind.config.js` | Extends Tailwind with CSS custom property values — bridges design tokens to utility classes |
+| `src/index.css` | Tailwind directives (`@tailwind base/components/utilities`), CSS design tokens (custom properties), global reset, scroll-reveal animation, keyframes |
+| `src/components/Nav.css` | Nav-specific styles (hamburger animation, backdrop blur, scroll state) |
+| `src/components/HeroSection.css` | Hero gradients, floating animation, responsive layout |
+| `src/components/SkillsSection.css` | Skill card grid and hover effects |
 | `src/components/common/BentoCard.css` | BentoCard glassmorphism + variant styles |
 | `src/components/common/SectionWrapper.css` | Section padding, max-width, title underline |
 
@@ -99,21 +101,24 @@ The resume includes: Header (name/contact) → Experience → Education → Tech
 
 ## Styling
 
-- **Design system:** CSS custom properties defined in `src/index.css` `:root` block
+- **Tailwind CSS v3:** Primary tool for layout, spacing, typography, and responsive design. Most components use Tailwind utility classes exclusively.
+- **`tailwind.config.js`:** Extends Tailwind with CSS custom property values — e.g. `bg-primary` resolves to `var(--color-primary)`, `shadow-glass` resolves to `var(--glass-shadow)`. Also defines custom animations (`animate-float`, `animate-fade-in-up`, etc.).
+- **Hybrid approach:** Tailwind utilities handle the majority of styling; dedicated CSS files are only kept for complex effects (animations, gradients, glassmorphism) that are hard to express inline. Currently 3 section components (`Nav`, `HeroSection`, `SkillsSection`) + 2 common components (`BentoCard`, `SectionWrapper`) retain CSS files.
+- **Design tokens:** CSS custom properties defined in `src/index.css` `:root` block remain the single source of truth for the color palette, spacing, and radii.
 - **Theme:** "Warm Sunset" — primary `#FFB088`, accent `#FF7B7B`, secondary `#FFD966`, bg `#FFF8F0`
-- **Font:** Google Fonts DM Sans (`--font-family`)
-- **Glass effect:** `--glass-bg`, `--glass-border`, `--glass-blur`, `--glass-shadow` tokens power the glassmorphism cards
+- **Font:** Google Fonts DM Sans (configured in `tailwind.config.js` as `font-sans`)
+- **Glass effect:** `--glass-bg`, `--glass-border`, `--glass-blur`, `--glass-shadow` tokens power the glassmorphism cards (exposed as `bg-glass-bg`, `border-glass-border`, `shadow-glass` in Tailwind)
 - **Spacing scale:** `--space-xs` (0.5rem) through `--space-4xl` (6rem)
-- **Radius scale:** `--radius-sm` (12px) through `--radius-pill` (999px)
-- **Layout:** `--max-width: 1200px`, `--nav-height: 72px`
-- **Animations:** `scroll-reveal` class (fade-up on viewport entry), `float`, `pulse-soft`, `gradient-shift`, `fade-in-up` keyframes
+- **Radius scale:** `rounded-sm` (12px) through `rounded-pill` (999px) — mapped in `tailwind.config.js`
+- **Layout:** `max-w-site` maps to `var(--max-width)` (1200px), `--nav-height: 72px`
+- **Animations:** `scroll-reveal` class (fade-up on viewport entry), plus Tailwind animations: `animate-float`, `animate-float-delayed`, `animate-pulse-soft`, `animate-gradient-shift`, `animate-fade-in-up`
 - **Accessibility:** `prefers-reduced-motion` disables all animations; `:focus-visible` outlines
 - **BentoCard variants:** `default` (plain glass), `accent` (pink tint), `golden` (yellow tint), `highlight` (orange tint)
 
 ## Component Patterns
 
 ### Adding a new section
-1. Create `src/components/NewSection.tsx` + `NewSection.css`
+1. Create `src/components/NewSection.tsx` — use Tailwind classes for styling. Only add a `.css` file if the component needs complex animations or effects that can't be expressed with Tailwind utilities.
 2. Use `SectionWrapper` for consistent layout: `<SectionWrapper id="new" title="New Section">`
 3. Wrap content items in `ScrollReveal` for entrance animation
 4. Use `BentoCard` for card-based layouts with appropriate variant
@@ -127,20 +132,24 @@ import SectionWrapper from './common/SectionWrapper';
 import ScrollReveal from './common/ScrollReveal';
 import BentoCard from './common/BentoCard';
 import { dataExport } from '../data/portfolioData';
-import './SectionName.css';
+// import './SectionName.css';  ← only if complex effects are needed
 
 export default function SectionName() {
   return (
     <SectionWrapper id="section-id" title="Section Title">
-      <ScrollReveal>
-        <BentoCard variant="default">
-          {/* content */}
-        </BentoCard>
-      </ScrollReveal>
+      <div className="grid gap-6 md:grid-cols-2">
+        <ScrollReveal>
+          <BentoCard variant="default">
+            <h3 className="text-xl font-bold text-text-main mb-2">{/* title */}</h3>
+            <p className="text-text-light">{/* content */}</p>
+          </BentoCard>
+        </ScrollReveal>
+      </div>
     </SectionWrapper>
   );
 }
 ```
+> **Note:** Most post-migration components use Tailwind utilities directly in `className`. A dedicated CSS file is only needed for complex effects like gradients, glassmorphism overrides, or multi-step animations.
 
 ### Updating content
 - Edit `src/data/portfolioData.ts` — all text content lives here
@@ -150,7 +159,7 @@ export default function SectionName() {
 ## Conventions
 
 - **File naming:** PascalCase for components (`ProjectsSection.tsx`), camelCase for data/hooks (`portfolioData.ts`, `useScrollReveal.ts`)
-- **CSS:** Component-level CSS files matching component names, BEM-like class naming (`section__container`, `nav__link--active`)
+- **CSS:** Tailwind utility classes for layout, spacing, and typography. Dedicated CSS files (BEM-like naming) only for components with complex effects — currently `Nav.css`, `HeroSection.css`, `SkillsSection.css`, `BentoCard.css`, `SectionWrapper.css`
 - **Exports:** Default exports for components, named exports for data and hooks
 - **No test files currently** — `App.test.tsx` was removed
 
