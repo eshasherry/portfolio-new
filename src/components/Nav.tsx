@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { navLinks } from '../data/portfolioData';
 import { useActiveSection } from '../hooks/useActiveSection';
+import GlassSurface from './GlassSurface';
 import './Nav.css';
 
 const sectionIds = navLinks.map((l) => l.href.replace('#', ''));
@@ -12,22 +13,19 @@ export default function Nav() {
   const handleClick = () => setMenuOpen(false);
 
   return (
-    <nav className="sticky top-0 z-[100] bg-white/80 backdrop-blur-[16px] border-b border-glass-border h-[var(--nav-height)]" aria-label="Main navigation">
-      <div className="max-w-site mx-auto px-8 h-full flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <a href="#hero" className="text-2xl font-bold text-text-main tracking-tight" onClick={handleClick}>
-            ES<span className="text-accent">.</span>
-          </a>
-          <video
-            className="h-20 w-auto rounded-sm object-cover"
-            src={`${process.env.PUBLIC_URL}/Video_No_Background.mp4`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-hidden="true"
-          />
-        </div>
+    <nav className="sticky top-0 z-[100] border-b border-glass-border h-[var(--nav-height)] relative" aria-label="Main navigation">
+      <GlassSurface
+        width="100%"
+        height="100%"
+        borderRadius={0}
+        backgroundOpacity={0.9}
+        distortionScale={-30}
+        className="!absolute !inset-0 !bg-white/90"
+      />
+      <div className="max-w-site mx-auto px-8 h-full flex items-center justify-between relative z-10">
+        <a href="#hero" className="text-2xl font-bold text-text-main tracking-tight" onClick={handleClick}>
+          ES<span className="text-accent">.</span>
+        </a>
 
         <button
           className={`nav__hamburger ${menuOpen ? 'nav__hamburger--open' : ''}`}
