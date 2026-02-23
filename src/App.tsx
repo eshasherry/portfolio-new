@@ -21,7 +21,7 @@ function App() {
         <EducationSection />
         <ContactSection />
       </main>
-      <footer className="text-center py-12 px-8 text-text-light text-sm border-t border-glass-border">
+      <footer className="text-center py-12 px-8 max-md:py-8 max-md:px-4 text-text-light text-sm border-t border-glass-border">
         <p>
           &copy; {new Date().getFullYear()} Esha Sherry. Built with{' '}
           <span aria-label="love" role="img">&#10084;</span> and React.

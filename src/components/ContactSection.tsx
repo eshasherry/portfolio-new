@@ -19,26 +19,9 @@ const iconSvgs: Record<string, React.ReactNode> = {
 export default function ContactSection() {
   return (
     <SectionWrapper id="contact" title="Get in Touch">
-      <div className="grid grid-cols-[1fr_200px_200px] gap-6 items-start max-md:grid-cols-1">
-        {/* CTA Card */}
-        <ScrollReveal className="row-start-1">
-          <BentoCard className="h-full flex flex-col">
-            <h3 className="text-2xl font-bold mb-4">Let's Build Something Amazing</h3>
-            <p className="text-base text-text-light leading-[1.7] mb-8 flex-1">
-              Whether you're looking for an AI/ML specialist, a technical lead,
-              or just want to connect — I'd love to hear from you.
-            </p>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="inline-block py-3 px-12 bg-gradient-to-br from-accent to-primary text-white rounded-pill font-semibold text-base transition-all duration-300 text-center shadow-[0_4px_16px_rgba(255,123,123,0.3)] w-fit hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(255,123,123,0.4)]"
-            >
-              Say Hello
-            </a>
-          </BentoCard>
-        </ScrollReveal>
-
+      <div className="grid grid-cols-[200px_200px] gap-6 items-start max-md:grid-cols-1">
         {/* Resume Download */}
-        <ScrollReveal delay={100} className="row-start-1">
+        <ScrollReveal className="row-start-1">
           <a
             href={personalInfo.resumeUrl}
             download="EshaSherryResume.pdf"
