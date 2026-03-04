@@ -7,6 +7,7 @@ import ExperienceSection from './components/ExperienceSection';
 import SkillsSection from './components/SkillsSection';
 import EducationSection from './components/EducationSection';
 import ContactSection from './components/ContactSection';
+import ChatBot from './components/ChatBot';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <span aria-label="love" role="img">&#10084;</span> and React.
         </p>
       </footer>
+      <ChatBot />
     </>
   );
 }
