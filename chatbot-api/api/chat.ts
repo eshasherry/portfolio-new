@@ -1,4 +1,4 @@
-import { anthropic } from '@ai-sdk/anthropic';
+import { google } from '@ai-sdk/google';
 import { streamText, convertToModelMessages } from 'ai';
 import { z } from 'zod';
 import { portfolioContext } from '../lib/portfolio-context.js';
@@ -46,7 +46,7 @@ export default async function handler(request: Request): Promise<Response> {
 
   try {
     const result = streamText({
-      model: anthropic('claude-haiku-4-5-20251001'),
+      model: google('gemini-2.5-flash'),
       system: portfolioContext,
       messages: await convertToModelMessages(parsed.data.messages),
       maxTokens: 512,
