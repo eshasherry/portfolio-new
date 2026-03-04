@@ -111,6 +111,7 @@ export default function ChatBot() {
               placeholder="Ask me anything..."
               className="chatbot-input"
               disabled={isLoading}
+              aria-label="Chat message"
             />
             {isLoading ? (
               <button type="button" onClick={stop} className="chatbot-send-btn" aria-label="Stop">
