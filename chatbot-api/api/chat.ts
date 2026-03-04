@@ -49,7 +49,7 @@ export default async function handler(request: Request): Promise<Response> {
       model: google('gemini-2.5-flash'),
       system: portfolioContext,
       messages: await convertToModelMessages(parsed.data.messages),
-      maxTokens: 512,
+      maxOutputTokens: 512,
     });
 
     return result.toUIMessageStreamResponse();
