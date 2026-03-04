@@ -5,7 +5,7 @@ import './HeroSection.css';
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center text-center py-24 px-8 relative overflow-hidden max-md:min-h-[calc(100vh-var(--nav-height))] max-md:py-16 max-md:px-4">
+    <section id="hero" className="min-h-screen flex items-center justify-center text-center py-24 px-8 relative overflow-hidden max-md:min-h-screen max-md:py-16 max-md:px-4">
       {/* Floating decorative circles */}
       <div className="hero__circle hero__circle--1" aria-hidden="true" />
       <div className="hero__circle hero__circle--2" aria-hidden="true" />

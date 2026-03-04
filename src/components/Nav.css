@@ -1,9 +1,12 @@
-/* ─── Hamburger Animation ──────────────────────── */
+/* ─── Hamburger (mobile only) ──────────────────── */
 .nav__hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
   z-index: 101;
 }
 
@@ -28,40 +31,77 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ─── Mobile Nav Links ─────────────────────────── */
+/* ─── Desktop nav links ─────────────────────────── */
 .nav__links {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+/* ─── Mobile bottom sheet ────────────────────────── */
+.nav__scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.nav__sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 201;
+  padding: 2rem 1.5rem calc(2rem + env(safe-area-inset-bottom));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: rgba(255, 248, 240, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -8px 32px rgba(61, 44, 44, 0.12);
+}
+
+.nav__sheet-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__sheet-links a {
+  display: block;
+  position: relative;
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav__sheet-links a.active {
+  color: var(--color-text);
+}
+
+/* ─── Mobile breakpoint ──────────────────────────── */
 @media (max-width: 768px) {
   .nav__hamburger {
     display: flex;
   }
 
   .nav__links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 260px;
-    height: 100vh;
-    flex-direction: column;
-    background: rgba(255, 248, 240, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: calc(var(--nav-height) + 2rem) 2rem 2rem;
-    gap: 0.5rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    box-shadow: -4px 0 24px rgba(61, 44, 44, 0.1);
+    display: none;
   }
+}
 
-  .nav__links--open {
-    transform: translateX(0);
-  }
-
-  .nav__links a {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
+/* ─── Reduced motion ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav__hamburger span {
+    transition: none;
   }
 }
