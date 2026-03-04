@@ -1,5 +1,5 @@
 import React from 'react';
-import { personalInfo, socialLinks } from '../data/portfolioData';
+import { personalInfo, socialLinks, contactTagline } from '../data/portfolioData';
 import BentoCard from './common/BentoCard';
 import SectionWrapper from './common/SectionWrapper';
 import ScrollReveal from './common/ScrollReveal';
@@ -19,9 +19,31 @@ const iconSvgs: Record<string, React.ReactNode> = {
 export default function ContactSection() {
   return (
     <SectionWrapper id="contact" title="Get in Touch">
-      <div className="grid grid-cols-[200px_200px] gap-6 items-start max-md:grid-cols-1">
+      <p className="text-text-light text-lg text-center mb-10">{contactTagline}</p>
+
+      <div className="grid grid-cols-4 gap-6 max-md:grid-cols-2">
+        {/* Social Links */}
+        {socialLinks.map((link, i) => (
+          <ScrollReveal key={link.name} delay={i * 80}>
+            <a
+              href={link.url}
+              target={link.icon !== 'email' ? '_blank' : undefined}
+              rel={link.icon !== 'email' ? 'noopener noreferrer' : undefined}
+              aria-label={link.name}
+              className="block h-full"
+            >
+              <BentoCard className="h-full flex flex-col items-center justify-center text-center gap-3 cursor-pointer">
+                <span className="w-9 h-9 shrink-0 flex [&>img]:w-full [&>img]:h-full [&>img]:object-contain [&>img]:rounded-[6px]">
+                  {iconSvgs[link.icon]}
+                </span>
+                <span className="text-sm font-semibold">{link.name}</span>
+              </BentoCard>
+            </a>
+          </ScrollReveal>
+        ))}
+
         {/* Resume Download */}
-        <ScrollReveal className="row-start-1">
+        <ScrollReveal delay={socialLinks.length * 80}>
           <a
             href={personalInfo.resumeUrl}
             download="EshaSherryResume.pdf"
@@ -38,27 +60,6 @@ export default function ContactSection() {
             </BentoCard>
           </a>
         </ScrollReveal>
-
-        {/* Social Links */}
-        <div className="flex flex-col gap-6 row-start-1 max-md:flex-row max-[480px]:flex-col">
-          {socialLinks.map((link, i) => (
-            <ScrollReveal key={link.name} delay={200 + i * 80}>
-              <a
-                href={link.url}
-                target={link.icon !== 'email' ? '_blank' : undefined}
-                rel={link.icon !== 'email' ? 'noopener noreferrer' : undefined}
-                aria-label={link.name}
-              >
-                <BentoCard className="flex items-center gap-3 p-4 px-6 cursor-pointer max-md:flex-1 max-md:justify-center max-md:px-4">
-                  <span className="w-6 h-6 shrink-0 flex [&>img]:w-full [&>img]:h-full [&>img]:object-contain [&>img]:rounded-[6px] has-[img]:w-9 has-[img]:h-9">
-                    {iconSvgs[link.icon]}
-                  </span>
-                  <span className="text-sm font-semibold">{link.name}</span>
-                </BentoCard>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
       </div>
     </SectionWrapper>
   );

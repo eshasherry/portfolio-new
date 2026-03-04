@@ -214,6 +214,8 @@ export const socialLinks: SocialLink[] = [
   { name: 'Email', url: 'mailto:esha.sherry@gmail.com', icon: 'email' },
 ];
 
+export const contactTagline = "Let's build something great.";
+
 export const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
