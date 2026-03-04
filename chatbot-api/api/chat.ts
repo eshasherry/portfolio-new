@@ -3,6 +3,8 @@ import { streamText, convertToModelMessages } from 'ai';
 import { z } from 'zod';
 import { portfolioContext } from '../lib/portfolio-context.js';
 
+export const config = { runtime: 'edge' };
+
 const ALLOWED_ORIGINS = new Set([
   'https://esherry.ca',
   'https://www.esherry.ca',
