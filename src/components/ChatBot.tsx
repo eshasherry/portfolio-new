@@ -16,7 +16,7 @@ export default function ChatBot() {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { messages, sendMessage, status, stop } = useChat({
+  const { messages, sendMessage, status, stop, error } = useChat({
     transport: new DefaultChatTransport({ api: API_URL }),
   });
 
@@ -96,6 +96,11 @@ export default function ChatBot() {
                   ))}
               </div>
             ))}
+            {error && (
+              <div className="chatbot-message chatbot-message--error">
+                Something went wrong. Please try again.
+              </div>
+            )}
             {status === 'submitted' && (
               <div className="chatbot-message chatbot-message--assistant chatbot-typing">
                 <span /><span /><span />
@@ -112,6 +117,7 @@ export default function ChatBot() {
               className="chatbot-input"
               disabled={isLoading}
               aria-label="Chat message"
+              maxLength={4000}
             />
             {isLoading ? (
               <button type="button" onClick={stop} className="chatbot-send-btn" aria-label="Stop">

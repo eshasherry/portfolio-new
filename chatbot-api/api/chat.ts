@@ -13,8 +13,8 @@ const BodySchema = z.object({
   messages: z.array(z.object({
     role: z.enum(['user', 'assistant']),
     parts: z.array(z.object({
-      type: z.string(),
-      text: z.string().max(4000).optional(),
+      type: z.enum(['text']),
+      text: z.string().min(1).max(4000),
     })),
   })).min(1).max(50),
 });

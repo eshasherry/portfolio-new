@@ -162,6 +162,15 @@
   border-bottom-left-radius: 4px;
 }
 
+.chatbot-message--error {
+  align-self: flex-start;
+  background: rgba(255, 123, 123, 0.1);
+  color: var(--color-accent);
+  border: 1px solid rgba(255, 123, 123, 0.3);
+  border-bottom-left-radius: 4px;
+  font-size: 13px;
+}
+
 /* ─── Welcome & Suggestions ───────────────────── */
 
 .chatbot-welcome {
