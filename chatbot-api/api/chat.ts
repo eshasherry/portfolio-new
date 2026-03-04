@@ -5,11 +5,19 @@ import { portfolioContext } from '../lib/portfolio-context.js';
 
 export const config = { runtime: 'edge' };
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': 'https://esherry.ca',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+const ALLOWED_ORIGINS = new Set([
+  'https://esherry.ca',
+  'https://www.esherry.ca',
+]);
+
+function corsHeaders(request: Request): Record<string, string> {
+  const origin = request.headers.get('Origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : '',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+}
 
 const BodySchema = z.object({
   messages: z.array(z.object({
@@ -21,29 +29,31 @@ const BodySchema = z.object({
   })).min(1).max(50),
 });
 
-function corsResponse(body: string, status: number): Response {
-  return new Response(body, { status, headers: CORS_HEADERS });
+function corsResponse(request: Request, body: string, status: number): Response {
+  return new Response(body, { status, headers: corsHeaders(request) });
 }
 
 export default async function handler(request: Request): Promise<Response> {
+  const headers = corsHeaders(request);
+
   if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
+    return new Response(null, { status: 204, headers });
   }
 
   if (request.method !== 'POST') {
-    return corsResponse('Method not allowed', 405);
+    return corsResponse(request, 'Method not allowed', 405);
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return corsResponse('Invalid JSON body', 400);
+    return corsResponse(request, 'Invalid JSON body', 400);
   }
 
   const parsed = BodySchema.safeParse(body);
   if (!parsed.success) {
-    return corsResponse('Invalid request body', 400);
+    return corsResponse(request, 'Invalid request body', 400);
   }
 
   try {
@@ -51,12 +61,12 @@ export default async function handler(request: Request): Promise<Response> {
       model: google('gemini-2.5-flash'),
       system: portfolioContext,
       messages: await convertToModelMessages(parsed.data.messages),
-      maxTokens: 512,
+      maxOutputTokens: 512,
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({ headers });
   } catch (err) {
     console.error('Chat API error:', err);
-    return corsResponse('Internal server error', 500);
+    return corsResponse(request, 'Internal server error', 500);
   }
 }
