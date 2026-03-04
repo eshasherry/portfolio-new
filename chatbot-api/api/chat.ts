@@ -23,9 +23,8 @@ const BodySchema = z.object({
   messages: z.array(z.object({
     role: z.enum(['user', 'assistant']),
     parts: z.array(z.object({
-      type: z.enum(['text']),
-      text: z.string().min(1).max(4000),
-    })),
+      type: z.string(),
+    }).passthrough()),
   })).min(1).max(50),
 });
 
