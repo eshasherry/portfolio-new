@@ -1,0 +1,10 @@
+{
+  "name": "cute-portfolio-chatbot-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ai": "^6.0.111",
+    "@ai-sdk/anthropic": "^3.0.53"
+  }
+}
