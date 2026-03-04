@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { navLinks } from '../data/portfolioData';
 import { useActiveSection } from '../hooks/useActiveSection';
 import GlassSurface from './GlassSurface';
@@ -34,6 +34,7 @@ export default function Nav() {
   }, [menuOpen]);
 
   return (
+    <MotionConfig reducedMotion="user">
     <>
       {/* ─── Floating pill nav ─────────────────────── */}
       <nav
@@ -96,6 +97,7 @@ export default function Nav() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
+            aria-controls="mobile-nav-sheet"
           >
             <span />
             <span />
@@ -119,6 +121,7 @@ export default function Nav() {
             />
             {/* Sheet */}
             <motion.div
+              id="mobile-nav-sheet"
               className="nav__sheet"
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
@@ -153,5 +156,6 @@ export default function Nav() {
         )}
       </AnimatePresence>
     </>
+    </MotionConfig>
   );
 }
