@@ -3,6 +3,8 @@ import { streamText, convertToModelMessages } from 'ai';
 import { z } from 'zod';
 import { portfolioContext } from '../lib/portfolio-context.js';
 
+export const config = { runtime: 'edge' };
+
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': 'https://esherry.ca',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
