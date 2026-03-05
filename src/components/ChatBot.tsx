@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import Mascot from './Mascot';
 import './ChatBot.css';
 
 const API_URL = process.env.REACT_APP_CHAT_API_URL || '';
@@ -21,6 +22,11 @@ export default function ChatBot() {
   });
 
   const isLoading = status === 'submitted' || status === 'streaming';
+
+  const mascotState: 'idle' | 'thinking' | 'talking' =
+    status === 'submitted' ? 'thinking' :
+    status === 'streaming' ? 'talking' :
+    'idle';
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,10 +53,16 @@ export default function ChatBot() {
         <div className="chatbot-panel">
           <div className="chatbot-header">
             <div className="chatbot-header-info">
-              <div className="chatbot-avatar">E</div>
+              <div className="chatbot-avatar">
+                <Mascot scale={0.3} state={mascotState} />
+              </div>
               <div>
                 <div className="chatbot-header-title">Ask about Esha</div>
-                <div className="chatbot-header-subtitle">AI-powered assistant</div>
+                <div className="chatbot-header-subtitle">
+                  {mascotState === 'thinking' ? 'Thinking...' :
+                   mascotState === 'talking' ? 'Responding...' :
+                   'AI-powered assistant'}
+                </div>
               </div>
             </div>
             <button
@@ -153,9 +165,13 @@ export default function ChatBot() {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         ) : (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
+          <>
+            <Mascot scale={0.35} state="idle" />
+            <span className="chatbot-toggle-dot">
+              <span className="chatbot-toggle-dot-ping" />
+              <span className="chatbot-toggle-dot-solid" />
+            </span>
+          </>
         )}
       </button>
     </div>
