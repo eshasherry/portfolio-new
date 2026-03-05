@@ -71,7 +71,7 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
   const coreBg = isThinking ? 'rgba(255,123,123,0.1)' : 'rgba(255,176,136,0.1)';
   const coreBorder = isThinking ? '1px solid rgba(255,123,123,0.2)' : '1px solid rgba(255,176,136,0.2)';
 
-  const eye = (
+  const renderEye = () => (
     <div className="relative">
       <div
         className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-150 ${blink ? 'scale-y-0 opacity-0' : 'scale-y-100 opacity-100'}`}
@@ -106,10 +106,17 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
         height: 160 * scale,
         flexShrink: 0,
         overflow: 'visible',
+        position: 'relative',
       }}
     >
-      {/* Scaled inner wrapper */}
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'center center' }}>
+      {/* Scaled inner wrapper — absolute so it doesn't push flex siblings */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: `translate(-50%, -50%) scale(${scale})`,
+        transformOrigin: 'center center',
+      }}>
 
       {/* Shadow Base */}
       <div
@@ -119,8 +126,8 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
 
       {/* Main Character Body Container */}
       <div
-        className={`relative transition-all duration-700 ease-out ${isThinking ? 'mascot-thinking' : 'mascot-float'}`}
-        style={{ transform: isHovered ? 'translateY(-15px) scale(1.05)' : 'translateY(0) scale(1)' }}
+        className={`relative transition-all duration-700 ease-out ${isHovered ? '' : isThinking ? 'mascot-thinking' : 'mascot-float'}`}
+        style={{ transform: isHovered ? 'translateY(-15px) scale(1.05)' : undefined }}
       >
         {/* Head */}
         <div className="relative w-28 h-28 z-20">
@@ -147,8 +154,8 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
                 className="flex gap-4 z-10 transition-transform duration-200 ease-out"
                 style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}
               >
-                {eye}
-                {eye}
+                {renderEye()}
+                {renderEye()}
               </div>
 
               {/* Talking Mouth */}
