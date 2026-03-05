@@ -11,8 +11,8 @@
 /* ─── Toggle Button ───────────────────────────── */
 
 .chatbot-toggle {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: none;
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
@@ -23,6 +23,8 @@
   justify-content: center;
   box-shadow: 0 4px 20px rgba(255, 123, 123, 0.3);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  overflow: visible;
+  position: relative;
 }
 
 .chatbot-toggle:hover {
@@ -89,14 +91,10 @@
 .chatbot-avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
+  overflow: visible;
 }
 
 .chatbot-header-title {
@@ -122,6 +120,43 @@
 
 .chatbot-close-btn:hover {
   background: rgba(61, 44, 44, 0.06);
+}
+
+/* ─── Notification Dot ───────────────────────── */
+
+.chatbot-toggle-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: flex;
+  width: 18px;
+  height: 18px;
+}
+
+.chatbot-toggle-dot-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.75;
+  animation: chatbot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.chatbot-toggle-dot-solid {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes chatbot-ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
 
 /* ─── Messages ────────────────────────────────── */
@@ -306,7 +341,7 @@
   .chatbot-panel {
     width: calc(100vw - 32px);
     right: -8px;
-    bottom: 68px;
+    bottom: 76px;
     max-height: 70vh;
   }
 
@@ -326,6 +361,11 @@
   .chatbot-typing span {
     animation: none;
     opacity: 0.5;
+  }
+
+  .chatbot-toggle-dot-ping {
+    animation: none;
+    display: none;
   }
 }
 
