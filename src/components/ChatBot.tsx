@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import Mascot from './Mascot';
 import './ChatBot.css';
 
 const API_URL = process.env.REACT_APP_CHAT_API_URL || '';
@@ -21,6 +22,11 @@ export default function ChatBot() {
   });
 
   const isLoading = status === 'submitted' || status === 'streaming';
+
+  const mascotState: 'idle' | 'thinking' | 'talking' =
+    status === 'submitted' ? 'thinking' :
+    status === 'streaming' ? 'talking' :
+    'idle';
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,10 +53,16 @@ export default function ChatBot() {
         <div className="chatbot-panel">
           <div className="chatbot-header">
             <div className="chatbot-header-info">
-              <div className="chatbot-avatar">E</div>
+              <div className="chatbot-avatar">
+                <Mascot scale={0.3} state={mascotState} />
+              </div>
               <div>
                 <div className="chatbot-header-title">Ask about Esha</div>
-                <div className="chatbot-header-subtitle">AI-powered assistant</div>
+                <div className="chatbot-header-subtitle">
+                  {mascotState === 'thinking' ? 'Thinking...' :
+                   mascotState === 'talking' ? 'Responding...' :
+                   'AI-powered assistant'}
+                </div>
               </div>
             </div>
             <button
