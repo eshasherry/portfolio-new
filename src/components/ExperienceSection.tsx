@@ -7,9 +7,9 @@ import ScrollReveal from './common/ScrollReveal';
 export default function ExperienceSection() {
   return (
     <SectionWrapper id="experience" title="Experience">
-      <div className="grid grid-cols-[200px_repeat(3,1fr)] gap-6 items-start max-lg:grid-cols-2 max-md:grid-cols-1">
-        <ScrollReveal className="max-lg:col-span-full">
-          <BentoCard variant="golden" className="text-center py-12 px-6 flex flex-col items-center justify-center max-lg:flex-row max-lg:gap-4 max-lg:py-6">
+      <div className="grid grid-cols-[200px_1fr_1fr] gap-6 items-start max-lg:grid-cols-2 max-md:grid-cols-1">
+        <ScrollReveal className="row-span-2 max-lg:row-span-1 max-lg:col-span-full">
+          <BentoCard variant="golden" className="h-full text-center py-12 px-6 flex flex-col items-center justify-center max-lg:flex-row max-lg:gap-4 max-lg:py-6">
             <span className="text-[2.5rem] font-bold text-text-main leading-none">8+</span>
             <span className="text-sm text-text-light mt-2 leading-snug max-lg:mt-0">Years of<br />Experience</span>
           </BentoCard>
