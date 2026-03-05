@@ -101,8 +101,16 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
       className={`mascot-container relative flex items-center justify-center cursor-pointer select-none ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ transform: `scale(${scale})` }}
+      style={{
+        width: 160 * scale,
+        height: 160 * scale,
+        flexShrink: 0,
+        overflow: 'visible',
+      }}
     >
+      {/* Scaled inner wrapper */}
+      <div style={{ transform: `scale(${scale})`, transformOrigin: 'center center' }}>
+
       {/* Shadow Base */}
       <div
         className="absolute bottom-12 w-20 h-4 bg-black/10 blur-xl rounded-[100%] transition-transform duration-500"
@@ -187,6 +195,7 @@ const Mascot: React.FC<MascotProps> = ({ state = 'idle', className = '', scale =
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
