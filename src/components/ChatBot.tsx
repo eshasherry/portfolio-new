@@ -111,6 +111,8 @@ export default function ChatBot() {
             {error && (
               <div className="chatbot-message chatbot-message--error">
                 Something went wrong. Please try again.
+                <br />
+                <small style={{ opacity: 0.7, wordBreak: 'break-all' }}>{error.message}</small>
               </div>
             )}
             {status === 'submitted' && (
