@@ -9,6 +9,8 @@ const ALLOWED_ORIGINS = new Set([
   'https://esherry.ca',
   'https://www.esherry.ca',
   'https://eshasherry.github.io',
+  'http://localhost:3000',
+  'http://localhost:3001',
 ]);
 
 function corsHeaders(request: Request): Record<string, string> {
