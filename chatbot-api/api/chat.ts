@@ -8,12 +8,14 @@ export const config = { runtime: 'edge' };
 const ALLOWED_ORIGINS = new Set([
   'https://esherry.ca',
   'https://www.esherry.ca',
+  'https://eshasherry.github.io',
 ]);
 
 function corsHeaders(request: Request): Record<string, string> {
   const origin = request.headers.get('Origin') ?? '';
+  const allowed = ALLOWED_ORIGINS.has(origin) ? origin : 'https://esherry.ca';
   return {
-    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : '',
+    'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
